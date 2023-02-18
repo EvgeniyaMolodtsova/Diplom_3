@@ -15,7 +15,7 @@ public class UserClient extends Client {
                 .then();
     }
 
-    public ValidatableResponse login(UserLogin userLogin) {
+    public ValidatableResponse login(User userLogin) {
         return given().log().all()
                 .spec(getSpec())
                 .body(userLogin)

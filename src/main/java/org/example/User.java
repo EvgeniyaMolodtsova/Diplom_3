@@ -21,6 +21,10 @@ public class User {
         return new User(name, email, password);
     }
 
+    public static User getLoginFrom(User user) {
+        return new User(null, user.getEmail(), user.getPassword());
+    }
+
     public String getName() {
         return name;
     }

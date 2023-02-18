@@ -2,7 +2,6 @@ package org.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUp {
@@ -14,23 +13,27 @@ public class SignUp {
     }
 
     //поле ввода имени
-    private By name = By.xpath(".//label[text() = 'Имя']");
+    private By name = By.xpath(".//label[text() = 'Имя']/following-sibling::input");
 
     //поле ввода Email
-    private By email = By.xpath(".//label[text() = 'Email']");
+    private By email = By.xpath(".//label[text() = 'Email']/following-sibling::input");
 
     //поле ввода пароля
-    private By password = By.xpath(".//label[text() = 'Пароль']");
+    private By password = By.xpath(".//label[text() = 'Пароль']/following-sibling::input");
 
     //кнопка зарегистрироваться
-    private By singUp = By.className("button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa");
+    private By singUp = By.xpath(".//button[text() = 'Зарегистрироваться']");
 
-    //
-    private By messageAboutError = By.className("input__error text_type_main-default");
+    //сообщение о слишком коротком пароле
+    private By errorMessage = By.xpath(".//p[text() = 'Некорректный пароль']");
 
-    public void waitForSingUpIsClickable() {
-        new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(singUp));
+    //заголовок "Регистрация"
+    private By text = By.xpath(".//h2[text() = 'Регистрация']");
+
+    public void waitFor() {
+        new WebDriverWait(driver, 10).until(driver -> (driver.findElement(text).getText() != null
+                && !driver.findElement(text).getText().isEmpty()
+        ));
     }
 
     public void fillName(String userName) {
@@ -61,5 +64,13 @@ public class SignUp {
         fillEmail(user.getEmail());
         fillPassword(user.getPassword());
         clickToSingUp();
+    }
+
+    public String checkErrorMessage(){
+        new WebDriverWait(driver, 10).until(driver -> (driver.findElement(errorMessage).getText() != null
+                && !driver.findElement(errorMessage).getText().isEmpty()
+        ));
+
+        return driver.findElement(errorMessage).getText();
     }
 }
