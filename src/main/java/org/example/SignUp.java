@@ -33,15 +33,15 @@ public class SignUp {
                 .until(ExpectedConditions.elementToBeClickable(singUp));
     }
 
-    public void setName(String userName) {
+    public void fillName(String userName) {
         driver.findElement(name).sendKeys(userName);
     }
 
-    public void setEmail(String userEmail){
+    public void fillEmail(String userEmail){
         driver.findElement(email).sendKeys(userEmail);
     }
 
-    public void setPassword(String userPassword){
+    public void fillPassword(String userPassword){
         driver.findElement(password).sendKeys(userPassword);
     }
 
@@ -50,9 +50,16 @@ public class SignUp {
     }
 
     public void fillRegistrationForm(String userName, String userEmail, String userPassword){
-        setName(userName);
-        setEmail(userEmail);
-        setPassword(userPassword);
+        fillName(userName);
+        fillEmail(userEmail);
+        fillPassword(userPassword);
+        clickToSingUp();
+    }
+
+    public void fillRegistrationForm(User user){
+        fillName(user.getName());
+        fillEmail(user.getEmail());
+        fillPassword(user.getPassword());
         clickToSingUp();
     }
 }

@@ -21,6 +21,9 @@ public class HomePageStellaBurger {
     //кнопка "Войти в аккаунт"
     private By singIn = By.xpath(".//button[text()= 'Войти в аккаунт']");
 
+    //кнопка "Оформить заказ"
+    private By makeOrder = By.xpath(".//button[text() = 'Оформить заказ']");
+
     //кнопка перехода к разделу "Булки"
     private By buns = By.xpath(".//span[text()= 'Булки']");
 
