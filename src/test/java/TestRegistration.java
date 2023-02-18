@@ -16,7 +16,7 @@ public class TestRegistration {
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
-        signUp.waitFor();
+        signUp.waitForLoad();
         User user = User.generate();
         signUp.fillRegistrationForm(user);
 
@@ -29,7 +29,7 @@ public class TestRegistration {
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
-        signUp.waitFor();
+        signUp.waitForLoad();
         User user = User.generate();
         user.setPassword(Random.getRandom(5));
         signUp.fillRegistrationForm(user);
