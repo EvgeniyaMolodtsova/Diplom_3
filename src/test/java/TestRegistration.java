@@ -1,3 +1,4 @@
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.example.*;
 import org.junit.After;
@@ -45,6 +46,7 @@ public class TestRegistration {
     }
 
     @Test
+    @DisplayName("регистрация Chrome")
     public void registrationChrome(){
         driver = Drivers.getChromeDriver();
 
@@ -52,6 +54,7 @@ public class TestRegistration {
     }
 
     @Test
+    @DisplayName("регистрация Яндекс")
     public void registrationYandex(){
         driver = Drivers.getYandexDriver();
 
@@ -59,8 +62,17 @@ public class TestRegistration {
     }
 
     @Test
-    public void registrationChromeWithShortPassword() {
+    @DisplayName("невозможно зарегистрироваться с паролем короче 6 символов Chrome")
+    public void registrationChromeWithShortPasswordChrome() {
         driver = Drivers.getChromeDriver();
+
+        registrationWithShortPassword();
+    }
+
+    @Test
+    @DisplayName("невозможно зарегистрироваться с паролем короче 6 символов Яндекс")
+    public void registrationChromeWithShortPasswordYandex() {
+        driver = Drivers.getYandexDriver();
 
         registrationWithShortPassword();
     }
