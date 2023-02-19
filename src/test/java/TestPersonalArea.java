@@ -1,19 +1,37 @@
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.example.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 
+@RunWith(Parameterized.class)
 public class TestPersonalArea {
 
-    private WebDriver driver;
+    private final WebDriver driver;
+
+    private final String page = "https://stellarburgers.nomoreparties.site";
 
     private String token;
 
     UserClient userClient = new UserClient();
     User user;
+
+    public TestPersonalArea(WebDriver driver){
+        this.driver = driver;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getDriver() {
+        return new Object[][] {
+                {Drivers.getChromeDriver()},
+                {Drivers.getYandexDriver()},
+        };
+    }
 
     public void signIn(HomePageStellaBurger homePageStellaBurger, PersonalArea personalArea){
         SignIn signIn = new SignIn(driver);
@@ -43,9 +61,9 @@ public class TestPersonalArea {
     }
 
     @Test
-    public void checkClickPersonalAreaButtonChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
+    @DisplayName("переход в личный кабинет с главной страницы для Chrome и Яндекса")
+    public void checkClickPersonalAreaButton(){
+        driver.get(page);
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
         PersonalArea personalArea = new PersonalArea(driver);
@@ -56,9 +74,9 @@ public class TestPersonalArea {
     }
 
     @Test
-    public void checkClickConstructorButtonChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
+    @DisplayName("переход из личного кабинета в конструктор для Chrome и Яндекса")
+    public void checkClickConstructorButton(){
+        driver.get(page);
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
         PersonalArea personalArea = new PersonalArea(driver);
@@ -72,9 +90,9 @@ public class TestPersonalArea {
     }
 
     @Test
-    public void checkClickLogoChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
+    @DisplayName("переход из личного кабинета в конструктор по клику на логотип для Chrome и Яндекса")
+    public void checkClickLogo(){
+        driver.get(page);
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
         PersonalArea personalArea = new PersonalArea(driver);
@@ -88,9 +106,9 @@ public class TestPersonalArea {
     }
 
     @Test
-    public void checkClickExitButtonChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
+    @DisplayName("выход из аккаунта")
+    public void checkClickExitButton(){
+        driver.get(page);
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
         PersonalArea personalArea = new PersonalArea(driver);

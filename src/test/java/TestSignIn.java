@@ -5,16 +5,30 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 
+@RunWith(Parameterized.class)
 public class TestSignIn {
-    private WebDriver driver;
+    private final WebDriver driver;
 
     private String token;
 
     UserClient userClient = new UserClient();
     User user;
 
+    public TestSignIn(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getDriver() {
+        return new Object[][] {
+                {Drivers.getChromeDriver()},
+                {Drivers.getYandexDriver()},
+        };
+    }
 
     public void checkSignIn(HomePageStellaBurger homePageStellaBurger){
         SignIn signIn = new SignIn(driver);
@@ -42,9 +56,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Chrome")
-    public void signInChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Chrome и Яндекс")
+    public void loginThroughButtonSingIn(){
         driver.get("https://stellarburgers.nomoreparties.site");
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
@@ -56,9 +69,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку «Личный кабинет» Chrome")
-    public void signInThroughPersonalAreaChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход через кнопку «Личный кабинет» Chrome и Яндекс")
+    public void loginInThroughPersonalArea(){
         driver.get("https://stellarburgers.nomoreparties.site");
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
@@ -70,9 +82,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку в форме регистрации Chrome")
-    public void signInThroughSignUpFormChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход через кнопку в форме регистрации Chrome и Яндекс")
+    public void loginInThroughSignUpForm(){
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
@@ -85,67 +96,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку в форме восстановления пароля Chrome")
-    public void signInThroughForgotPasswordChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
-
-        ForgotPassword forgotPassword = new ForgotPassword(driver);
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        forgotPassword.waitLoad();
-        forgotPassword.clickForSignInButton();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Яндекс")
-    public void signInYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
-
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        homePageStellaBurger.waitForSignInIsClickable();
-        homePageStellaBurger.clickToSignIn();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку «Личный кабинет» Яндекс")
-    public void signInThroughPersonalAreaYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
-
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        homePageStellaBurger.waitForSignInIsClickable();
-        homePageStellaBurger.clickToPersonalAreaButton();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку в форме регистрации Яндекс")
-    public void signInThroughSignUpFormYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/register");
-
-        SignUp signUp = new SignUp(driver);
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        signUp.waitForLoad();
-        signUp.clickToSignIn();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку в форме восстановления пароля Яндекс")
-    public void signInThroughForgotPasswordYandex(){
-        driver = Drivers.getYandexDriver();
+    @DisplayName("вход через кнопку в форме восстановления пароля Chrome и Яндекс")
+    public void loginThroughForgotPassword(){
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
 
         ForgotPassword forgotPassword = new ForgotPassword(driver);
