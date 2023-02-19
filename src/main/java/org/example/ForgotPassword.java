@@ -16,11 +16,11 @@ public class ForgotPassword {
 
     private final By textOnPage = By.xpath(".//h2[text() = 'Восстановление пароля']");
 
-    public void clickForSignInButton(){
+    public void clickForSignInButton() {
         driver.findElement(signInButton).click();
     }
 
-    public void waitLoad(){
+    public void waitLoad() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(textOnPage).getText() != null
                 && !driver.findElement(textOnPage).getText().isEmpty()
         ));

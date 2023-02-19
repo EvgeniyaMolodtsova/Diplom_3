@@ -22,35 +22,25 @@ public class SignIn {
     //кнопка "войти"
     private final By signInButton = By.xpath(".//button[text() = 'Войти']");
 
-    //переход на регистрацию
-    private final By signUpButton = By.linkText("Зарегистрироваться");
-
-
-    private final By restorePassword = By.linkText("Восстановить пароль");
-
     public void waitForSignInIsClickable() {
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(signInButton));
     }
 
-    public boolean buttonSignInIsDisplayed(){
+    public boolean buttonSignInIsDisplayed() {
         return driver.findElement(signInButton).isDisplayed();
     }
 
-    public void setEmail(String userEmail){
+    public void setEmail(String userEmail) {
         driver.findElement(email).sendKeys(userEmail);
     }
 
-    public void setPassword(String userPassword){
+    public void setPassword(String userPassword) {
         driver.findElement(password).sendKeys(userPassword);
     }
 
-    public void clickToSignInButton(){
+    public void clickToSignInButton() {
         driver.findElement(signInButton).click();
-    }
-
-    public void clickToSignUpButton(){
-        driver.findElement(signUpButton).click();
     }
 
     public void fillSignInForm(String userEmail, String userPassword){

@@ -12,7 +12,7 @@ public class Drivers {
         // драйвер для браузера Chrome
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
 
 
         return new ChromeDriver(options);
@@ -25,7 +25,7 @@ public class Drivers {
         // драйвер для браузера Chrome
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         options.setBinary("/Applications/Yandex.app/Contents/MacOS/Yandex");
 
         return new ChromeDriver(options);

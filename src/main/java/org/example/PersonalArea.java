@@ -22,23 +22,23 @@ public class PersonalArea {
     //кнопка логотипа в шапке страницы
     private final By logo = By.className("AppHeader_header__logo__2D0X2");
 
-    public boolean exitButtonIsDisplayed(){
+    public boolean exitButtonIsDisplayed() {
         return driver.findElement(exitButton).isDisplayed();
     }
 
-    public void clickToExitButton(){
+    public void clickToExitButton() {
         driver.findElement(exitButton).click();
     }
 
-    public void clickToConstructor(){
+    public void clickToConstructor() {
         driver.findElement(constructor).click();
     }
 
-    public void clickToLogo(){
+    public void clickToLogo() {
         driver.findElement(logo).click();
     }
 
-    public void waitLoad(){
+    public void waitLoad() {
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(exitButton));
     }

@@ -25,7 +25,7 @@ public class UserClient extends Client {
 
     }
 
-    public ValidatableResponse delete(String accessToken){
+    public ValidatableResponse delete(String accessToken) {
         return given().log().all()
                 .spec(getSpec())
                 .header("Authorization", accessToken)

@@ -8,7 +8,7 @@ public class SignUp {
 
     private final WebDriver driver;
 
-    public SignUp(WebDriver driver){
+    public SignUp(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -43,37 +43,37 @@ public class SignUp {
         driver.findElement(name).sendKeys(userName);
     }
 
-    public void fillEmail(String userEmail){
+    public void fillEmail(String userEmail) {
         driver.findElement(email).sendKeys(userEmail);
     }
 
-    public void fillPassword(String userPassword){
+    public void fillPassword(String userPassword) {
         driver.findElement(password).sendKeys(userPassword);
     }
 
-    public void clickToSignUp(){
+    public void clickToSignUp() {
         driver.findElement(signUp).click();
     }
 
-    public void clickToSignIn(){
+    public void clickToSignIn() {
         driver.findElement(signIn).click();
     }
 
-    public void fillRegistrationForm(String userName, String userEmail, String userPassword){
+    public void fillRegistrationForm(String userName, String userEmail, String userPassword) {
         fillName(userName);
         fillEmail(userEmail);
         fillPassword(userPassword);
         clickToSignUp();
     }
 
-    public void fillRegistrationForm(User user){
+    public void fillRegistrationForm(User user) {
         fillName(user.getName());
         fillEmail(user.getEmail());
         fillPassword(user.getPassword());
         clickToSignUp();
     }
 
-    public String checkErrorMessage(){
+    public String checkErrorMessage() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(errorMessage).getText() != null
                 && !driver.findElement(errorMessage).getText().isEmpty()
         ));
