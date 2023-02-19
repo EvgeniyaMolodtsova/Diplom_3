@@ -19,7 +19,7 @@ public class TestSignIn {
     public void checkSignIn(HomePageStellaBurger homePageStellaBurger){
         SignIn signIn = new SignIn(driver);
 
-        signIn.waitForSignUpIsClickable();
+        signIn.waitForSignInIsClickable();
         signIn.fillSignInForm(user.getEmail(), user.getPassword());
         homePageStellaBurger.waitForButtonMakeOrder();
 

@@ -28,7 +28,7 @@ public class SignIn {
 
     private final By restorePassword = By.linkText("Восстановить пароль");
 
-    public void waitForSignUpIsClickable() {
+    public void waitForSignInIsClickable() {
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(signInButton));
     }

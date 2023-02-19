@@ -22,12 +22,16 @@ public class PersonalArea {
     //кнопка логотипа в шапке страницы
     private final By logo = By.className("AppHeader_header__logo__2D0X2");
 
+    public boolean exitButtonIsDisplayed(){
+        return driver.findElement(exitButton).isDisplayed();
+    }
+
     public void clickToExitButton(){
-        driver.findElement(exitButton);
+        driver.findElement(exitButton).click();
     }
 
     public void clickToConstructor(){
-        driver.findElement(constructor);
+        driver.findElement(constructor).click();
     }
 
     public void clickToLogo(){
