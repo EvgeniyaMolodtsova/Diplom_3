@@ -10,7 +10,7 @@ public class TestMenu {
 
     private WebDriver driver;
 
-    private static final int TIME_OUT = 2000;
+    private static final int TIME_OUT = 4000;
 
     public void checkScroll(WebDriver driver) throws InterruptedException {
         driver.get("https://stellarburgers.nomoreparties.site");
