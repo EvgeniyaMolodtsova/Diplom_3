@@ -1,11 +1,16 @@
+import api.client.UserClient;
+import api.model.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.example.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import pages.HomePageStellaBurger;
+import pages.PersonalArea;
+import pages.SignIn;
+import utils.Drivers;
 
 public class TestPersonalArea {
 
@@ -34,7 +39,7 @@ public class TestPersonalArea {
     public void createUser() {
         user = User.generate();
         ValidatableResponse create = userClient.create(user);
-        token = create.extract().path("accessToken");
+        token = userClient.getUserAccessToken(create);
     }
 
     @After

@@ -1,5 +1,6 @@
-package org.example;
+package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,22 +23,27 @@ public class PersonalArea {
     //кнопка логотипа в шапке страницы
     private final By logo = By.className("AppHeader_header__logo__2D0X2");
 
+    @Step("проверка, что на экране есть кнопка выхода")
     public boolean exitButtonIsDisplayed() {
         return driver.findElement(exitButton).isDisplayed();
     }
 
+    @Step("клик по кнопке выхода")
     public void clickToExitButton() {
         driver.findElement(exitButton).click();
     }
 
+    @Step("клик по кнопке Конструктор")
     public void clickToConstructor() {
         driver.findElement(constructor).click();
     }
 
+    @Step("клик по кнопке логотипу")
     public void clickToLogo() {
         driver.findElement(logo).click();
     }
 
+    @Step("ожидание кликабельности кнопки Выход")
     public void waitLoad() {
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(exitButton));

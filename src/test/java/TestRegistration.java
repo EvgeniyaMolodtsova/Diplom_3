@@ -1,17 +1,21 @@
+import api.client.UserClient;
+import api.model.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.example.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import pages.SignUp;
+import utils.Drivers;
+import utils.Random;
 
 public class TestRegistration {
 
     private WebDriver driver;
 
     private String token;
-    UserClient userClient = new UserClient();
+    private final UserClient userClient = new UserClient();
 
     public void registration(){
         driver.get("https://stellarburgers.nomoreparties.site/register");
@@ -22,7 +26,7 @@ public class TestRegistration {
         signUp.fillRegistrationForm(user);
 
         ValidatableResponse login = userClient.login(User.getLoginFrom(user));
-        token = login.extract().path("accessToken");
+        token = userClient.getUserAccessToken(login);
         Assert.assertEquals(200, login.extract().statusCode());
     }
 

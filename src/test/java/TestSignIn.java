@@ -1,19 +1,25 @@
+import api.client.UserClient;
+import api.model.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.example.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import pages.ForgotPassword;
+import pages.HomePageStellaBurger;
+import pages.SignIn;
+import pages.SignUp;
+import utils.Drivers;
 
 public class TestSignIn {
     private WebDriver driver;
 
     private String token;
 
-    UserClient userClient = new UserClient();
-    User user;
+    private final UserClient userClient = new UserClient();
+    private User user;
 
     public void checkSignIn(HomePageStellaBurger homePageStellaBurger){
         SignIn signIn = new SignIn(driver);
@@ -29,7 +35,7 @@ public class TestSignIn {
     public void createUser(){
         user = User.generate();
         ValidatableResponse create = userClient.create(user);
-        token = create.extract().path("accessToken");
+        token = userClient.getUserAccessToken(create);
     }
 
     @After

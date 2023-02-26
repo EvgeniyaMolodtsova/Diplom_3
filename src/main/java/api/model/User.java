@@ -1,5 +1,8 @@
-package org.example;
+package api.model;
 
+
+import io.qameta.allure.Step;
+import utils.Random;
 
 public class User {
 
@@ -13,6 +16,7 @@ public class User {
         this.password = password;
     }
 
+    @Step("генератор юзера API")
     public static User generate() {
         String name = Random.getRandom(7);
         String email = Random.getRandom(7) + "@yandex.ru";
@@ -21,6 +25,7 @@ public class User {
         return new User(name, email, password);
     }
 
+    @Step("данные для логина юзера API")
     public static User getLoginFrom(User user) {
         return new User(null, user.getEmail(), user.getPassword());
     }
@@ -33,6 +38,7 @@ public class User {
         this.name = name;
     }
 
+    @Step("возвращение email юзера API")
     public String getEmail() {
         return email;
     }

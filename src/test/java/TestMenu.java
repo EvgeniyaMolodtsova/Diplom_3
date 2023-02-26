@@ -1,6 +1,6 @@
 import io.qameta.allure.junit4.DisplayName;
-import org.example.Drivers;
-import org.example.HomePageStellaBurger;
+import utils.Drivers;
+import pages.HomePageStellaBurger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,12 +10,14 @@ public class TestMenu {
 
     private WebDriver driver;
 
+    private HomePageStellaBurger homePageStellaBurger;
+
     private static final int TIME_OUT = 4000;
 
     public void checkScroll(WebDriver driver) throws InterruptedException {
         driver.get("https://stellarburgers.nomoreparties.site");
 
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
+        homePageStellaBurger = new HomePageStellaBurger(driver);
         homePageStellaBurger.waitForSignInIsClickable();
 
         Assert.assertEquals(0, homePageStellaBurger.getScrollPosition(), 1);

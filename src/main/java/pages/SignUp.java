@@ -1,5 +1,7 @@
-package org.example;
+package pages;
 
+import api.model.User;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,28 +35,34 @@ public class SignUp {
     //заголовок "Регистрация"
     private final By text = By.xpath(".//h2[text() = 'Регистрация']");
 
+    @Step("ожидание загрузки страницы")
     public void waitForLoad() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(text).getText() != null
                 && !driver.findElement(text).getText().isEmpty()
         ));
     }
 
+    @Step("ввод имени в поле")
     public void fillName(String userName) {
         driver.findElement(name).sendKeys(userName);
     }
 
+    @Step("ввод Email в поле")
     public void fillEmail(String userEmail) {
         driver.findElement(email).sendKeys(userEmail);
     }
 
+    @Step("ввод пароля в поле")
     public void fillPassword(String userPassword) {
         driver.findElement(password).sendKeys(userPassword);
     }
 
+    @Step("клик по кнопке Зарегистрироваться")
     public void clickToSignUp() {
         driver.findElement(signUp).click();
     }
 
+    @Step("клик по кнопке Войти")
     public void clickToSignIn() {
         driver.findElement(signIn).click();
     }
@@ -66,6 +74,7 @@ public class SignUp {
         clickToSignUp();
     }
 
+    @Step("регистрация пользователя")
     public void fillRegistrationForm(User user) {
         fillName(user.getName());
         fillEmail(user.getEmail());
@@ -73,6 +82,7 @@ public class SignUp {
         clickToSignUp();
     }
 
+    @Step("возвращение текста сообщения об ошибке")
     public String checkErrorMessage() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(errorMessage).getText() != null
                 && !driver.findElement(errorMessage).getText().isEmpty()
