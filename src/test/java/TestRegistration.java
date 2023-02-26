@@ -12,12 +12,11 @@ import utils.Random;
 
 public class TestRegistration {
 
-    private WebDriver driver;
-
-    private String token;
     private final UserClient userClient = new UserClient();
+    private WebDriver driver;
+    private String token;
 
-    public void registration(){
+    public void registration() {
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
@@ -30,7 +29,7 @@ public class TestRegistration {
         Assert.assertEquals(200, login.extract().statusCode());
     }
 
-    public void registrationWithShortPassword(){
+    public void registrationWithShortPassword() {
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
@@ -42,7 +41,7 @@ public class TestRegistration {
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         if (token != null) {
             userClient.delete(token);
         }
@@ -51,7 +50,7 @@ public class TestRegistration {
 
     @Test
     @DisplayName("регистрация Chrome")
-    public void registrationChrome(){
+    public void registrationChrome() {
         driver = Drivers.getChromeDriver();
 
         registration();
@@ -59,7 +58,7 @@ public class TestRegistration {
 
     @Test
     @DisplayName("регистрация Яндекс")
-    public void registrationYandex(){
+    public void registrationYandex() {
         driver = Drivers.getYandexDriver();
 
         registration();
