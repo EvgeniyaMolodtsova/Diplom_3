@@ -2,10 +2,9 @@ import api.client.UserClient;
 import api.model.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import pages.ForgotPassword;
 import pages.HomePageStellaBurger;
@@ -13,15 +12,34 @@ import pages.SignIn;
 import pages.SignUp;
 import utils.Drivers;
 
+@RunWith(Parameterized.class)
 public class TestSignIn {
-    private WebDriver driver;
-
-    private String token;
-
+    private final static WebDriver chromeDriver = Drivers.getChromeDriver();
+    private final static WebDriver yandexDriver = Drivers.getYandexDriver();
+    private final WebDriver driver;
     private final UserClient userClient = new UserClient();
+    private String token;
     private User user;
 
-    public void checkSignIn(HomePageStellaBurger homePageStellaBurger){
+    public TestSignIn(WebDriver driver, String nameDriver) {
+        this.driver = driver;
+    }
+
+    @Parameterized.Parameters(name = "{index}: driver={1}")
+    public static Object[][] getDriver() {
+        return new Object[][]{
+                {chromeDriver, "Chrome"},
+                {yandexDriver, "Yandex"},
+        };
+    }
+
+    @AfterClass
+    public static void close() {
+        chromeDriver.quit();
+        yandexDriver.quit();
+    }
+
+    public void checkSignIn(HomePageStellaBurger homePageStellaBurger) {
         SignIn signIn = new SignIn(driver);
 
         signIn.waitForSignInIsClickable();
@@ -32,24 +50,22 @@ public class TestSignIn {
     }
 
     @Before
-    public void createUser(){
+    public void createUser() {
         user = User.generate();
         ValidatableResponse create = userClient.create(user);
         token = userClient.getUserAccessToken(create);
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         if (token != null) {
             userClient.delete(token);
         }
-        driver.quit();
     }
 
     @Test
-    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Chrome")
-    public void loginThroughButtonSingInChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Chrome и Яндекс")
+    public void loginThroughButtonSingIn() {
         driver.get("https://stellarburgers.nomoreparties.site");
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
@@ -61,9 +77,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку «Личный кабинет» Chrome")
-    public void loginInThroughPersonalAreaChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход через кнопку «Личный кабинет» Chrome и Яндекс")
+    public void loginInThroughPersonalArea() {
         driver.get("https://stellarburgers.nomoreparties.site");
 
         HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
@@ -75,9 +90,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку в форме регистрации Chrome")
-    public void loginInThroughSignUpFormChrome(){
-        driver = Drivers.getChromeDriver();
+    @DisplayName("вход через кнопку в форме регистрации Chrome и Яндекс")
+    public void loginInThroughSignUpForm() {
         driver.get("https://stellarburgers.nomoreparties.site/register");
 
         SignUp signUp = new SignUp(driver);
@@ -90,67 +104,8 @@ public class TestSignIn {
     }
 
     @Test
-    @DisplayName("вход через кнопку в форме восстановления пароля Chrome")
-    public void loginThroughForgotPasswordChrome(){
-        driver = Drivers.getChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
-
-        ForgotPassword forgotPassword = new ForgotPassword(driver);
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        forgotPassword.waitLoad();
-        forgotPassword.clickForSignInButton();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход по кнопке «Войти в аккаунт» на главной Яндекс")
-    public void loginThroughButtonSingInYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
-
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        homePageStellaBurger.waitForSignInIsClickable();
-        homePageStellaBurger.clickToSignIn();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку «Личный кабинет» Яндекс")
-    public void loginInThroughPersonalAreaYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site");
-
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        homePageStellaBurger.waitForSignInIsClickable();
-        homePageStellaBurger.clickToPersonalAreaButton();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку в форме регистрации Яндекс")
-    public void loginInThroughSignUpFormYandex(){
-        driver = Drivers.getYandexDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/register");
-
-        SignUp signUp = new SignUp(driver);
-        HomePageStellaBurger homePageStellaBurger = new HomePageStellaBurger(driver);
-
-        signUp.waitForLoad();
-        signUp.clickToSignIn();
-
-        checkSignIn(homePageStellaBurger);
-    }
-
-    @Test
-    @DisplayName("вход через кнопку в форме восстановления пароля Яндекс")
-    public void loginThroughForgotPasswordYandex(){
-        driver = Drivers.getYandexDriver();
+    @DisplayName("вход через кнопку в форме восстановления пароля Chrome и Яндекс")
+    public void loginThroughForgotPassword() {
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
 
         ForgotPassword forgotPassword = new ForgotPassword(driver);
